@@ -1,4 +1,4 @@
-name: Enforce PR labels
+name: "PR is not marked as stale"
 
 on:
   pull_request:

@@ -1,4 +1,7 @@
 name: "Mark old PRs as stale"
+on:
+  pull_request:
+    types: [opened, edited, synchronize]
 
 jobs:
   stale:

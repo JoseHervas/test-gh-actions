@@ -1,0 +1,12 @@
+name: "Block PRs older than X days"
+on:
+  pull_request:
+    types: [opened, edited, synchronize]
+  workflow_dispatch:
+jobs:
+  call-workflow1:
+    uses: ./.github/workflows/stale-prs.yml
+  call-workflow2:
+    if: ${{ always() }}
+    needs: call-workflow1
+    uses: ./.github/workflows/enforce-labels.yml

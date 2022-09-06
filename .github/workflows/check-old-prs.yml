@@ -1,12 +1,18 @@
-name: "Block PRs older than X days"
+name: "Inactive PR"
+description: "Block PRs older than X days"
+
 on:
   pull_request:
-    types: [opened, edited, synchronize]
-  workflow_dispatch:
-jobs:
-  call-workflow1:
-    uses: ./.github/workflows/stale-prs.yml
-  call-workflow2:
-    if: ${{ always() }}
-    needs: call-workflow1
-    uses: ./.github/workflows/enforce-labels.yml
+    types: [labeled, unlabeled, opened, edited, synchronize]
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/stale@v5
+      with:
+        stale-pr-message: "This PR didnt change on the last 20 days. We're marking it as STALE. Before merging, pull develop or re-run the Jenkins job"
+        days-before-stale: 0
+
+    - uses: yogevbd/enforce-label-action@2.1.0
+      with:
+        BANNED_LABELS: "stale"

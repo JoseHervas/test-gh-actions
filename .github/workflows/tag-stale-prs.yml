@@ -1,7 +1,7 @@
 name: "Mark old PRs as stale"
 on:
   schedule:
-    - cron: "29 * * * *"
+    - cron: "32 * * * *"
 
 jobs:
   stale:
